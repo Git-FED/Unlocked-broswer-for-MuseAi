@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Age-gated support and donation options for FedPromptly.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <title>Support FedPromptly</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5d687c;
+      --panel: #ffffff;
+      --border: #dce2ec;
+      --accent: #4657d8;
+      --background: #f4f6fb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--background);
+      font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    header, main { width: min(1080px, calc(100% - 32px)); margin: auto; }
+    header { padding: 48px 0 24px; }
+    h1, h2, p { margin-top: 0; }
+    h1 { margin-bottom: 8px; font-size: clamp(2rem, 5vw, 3.25rem); }
+    .intro { color: var(--muted); max-width: 700px; }
+    .promo {
+      display: block;
+      width: min(100%, 1080px);
+      height: auto;
+      margin: 0 auto 24px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(23, 32, 51, .05);
+    }
+    .notice {
+      border-left: 4px solid var(--accent);
+      padding: 12px 16px;
+      background: #eef0ff;
+      border-radius: 8px;
+      color: #2e387f;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      padding-bottom: 48px;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      min-height: 220px;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(23, 32, 51, .05);
+    }
+    .card h2 { margin-bottom: 0; font-size: 1.25rem; }
+    .card p { color: var(--muted); margin-bottom: 4px; }
+    .card-content { width: 100%; margin-top: auto; }
+    .button-link {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: white;
+      background: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .paypal-frame { width: 100%; min-height: 48px; }
+    .paypal-frame iframe { max-width: 100%; }
+    .inline-widget { min-height: 36px; }
+    footer { width: min(1080px, calc(100% - 32px)); margin: 0 auto 32px; color: var(--muted); font-size: .9rem; }
+
+    #age-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(13, 18, 32, .86);
+    }
+    #age-gate[hidden] { display: none; }
+    .gate-panel {
+      width: min(520px, 100%);
+      padding: 28px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.25);
+    }
+    .gate-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    button, .secondary-link {
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    button { color: white; background: var(--accent); }
+    .secondary-link { color: var(--ink); background: #e9edf5; }
+    .fine-print { color: var(--muted); font-size: .88rem; }
+    .site-footer {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto 32px;
+      padding: 28px;
+      color: var(--muted);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .site-footer h2 { margin: 0 0 18px; color: var(--ink); font-size: 1.3rem; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 24px; }
+    .footer-group h3 { margin: 0 0 8px; color: var(--ink); font-size: 1rem; }
+    .footer-group ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    .footer-group a { color: #3646bd; text-decoration: none; overflow-wrap: anywhere; }
+    .footer-group a:hover, .footer-group a:focus { text-decoration: underline; }
+    .footer-contact a { color: var(--ink); }
+    .footer-note { margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--border); font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <section id="age-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+    <div class="gate-panel">
+      <h2 id="gate-title">Age confirmation required</h2>
+      <p>This support page is intended for visitors who are at least 18 years old. Please confirm your age before continuing.</p>
+      <p class="fine-print">This simple browser gate is an advisory control and does not verify identity, location, or legal eligibility.</p>
+      <div class="gate-actions">
+        <button id="confirm-age" type="button">I am 18 or older</button>
+        <a class="secondary-link" href="leave.html">Leave page</a>
+      </div>
+    </div>
+  </section>
+
+  <header>
+    <h1>Support FedPromptly</h1>
+    <p class="intro">Choose the payment or donation method that works best for you. The options below are intentionally separated so each provider is easy to identify.</p>
+    <p class="notice"><strong>Support only:</strong> Payments are processed by the selected provider. Review each provider’s terms before completing a contribution.</p>
+  </header>
+
+  <main>
+    <img class="promo" src="assets/support-promo.png" alt="Friendly blue-purple robot holding a heart-shaped support symbol">
+  </main>
+
+  <main class="grid" aria-label="Donation and payment options">
+    <section class="card">
+      <h2>FedPromptly community</h2>
+      <p>Open the community invite card for the FedPromptly open-source, AI tools, and publishing community.</p>
+      <div class="card-content">
+        <a class="button-link" href="community-invite.html">Open community invite</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>PayPal subscription</h2>
+      <p>Set up a recurring contribution through PayPal.</p>
+      <div class="card-content paypal-frame" id="paypal-button-container-P-4FD24238VX4902214NK2XP2Y"></div>
+    </section>
+
+    <section class="card">
+      <h2>Ko-fi</h2>
+      <p>Send support through the Ko-fi floating support widget.</p>
+      <div class="card-content inline-widget" aria-label="Ko-fi support widget"></div>
+    </section>
+
+    <section class="card">
+      <h2>GitHub Sponsors</h2>
+      <p>Support the project directly through GitHub Sponsors.</p>
+      <div class="card-content">
+        <iframe src="https://github.com/sponsors/Git-FED/button" title="Sponsor Git-FED" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Patreon</h2>
+      <p>Become a Patreon supporter with the supplied $5 pledge checkout.</p>
+      <div class="card-content">
+        <a class="button-link" href="https://www.patreon.com/checkout/16145898/28759937?client_id=yieuxJary8ZL-f8_KU2x6CLgr8nrI8W61ttU1yzFIpPl4KhhtqsjGDWTKdh0e-gx&amp;state=05d4a8d93af762ab4aa99e75678389c6&amp;response_type=code&amp;amt=5.0&amp;pledge_insufficient=True&amp;redirect_uri=https%3A%2F%2Fwww.patreon.com%2Foauth2%2Fbecome-patron%3Fredirect_uri%3Dhttps%253A%252F%252Fgithub.com%252Fsponsors%252Faccounts%252Fpatreon%26client_id%3DyieuxJary8ZL-f8_KU2x6CLgr8nrI8W61ttU1yzFIpPl4KhhtqsjGDWTKdh0e-gx%26min_cents%3D500%26campaign_id%3D16145898%26response_type%3Dcode%26state%3D05d4a8d93af762ab4aa99e75678389c6%26scope%3Didentity%2Bidentity%255Bemail%255D%2Bcampaigns%2Bw%253Acampaigns.webhook%2Bcampaigns.members&amp;start_flow=become_patron&amp;scope=identity+identity%5Bemail%5D+campaigns+w%3Acampaigns.webhook+campaigns.members" target="_blank" rel="noopener noreferrer">Support on Patreon</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Buy Me a Coffee</h2>
+      <p>Buy FedPromptly a book.</p>
+      <div class="card-content">
+        <a href="https://www.buymeacoffee.com/fedpromptly" rel="noopener noreferrer">
+          <img src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20book&emoji=%F0%9F%93%96&slug=fedpromptly&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="Buy me a book on Buy Me a Coffee">
+        </a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Cryptocurrency</h2>
+      <p>Pay with cryptocurrency through NOWPayments.</p>
+      <div class="card-content">
+        <a href="https://nowpayments.io/payment/?iid=5997958570&source=button" target="_blank" rel="noreferrer noopener">
+          <img src="https://nowpayments.io/images/embeds/payments-button-white.svg" alt="Cryptocurrency and Bitcoin payment button by NOWPayments">
+        </a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Stripe</h2>
+      <p>Make a one-time or configured Stripe purchase.</p>
+      <div class="card-content">
+        <stripe-buy-button
+          buy-button-id="buy_btn_1UJKaaJaRf233kfWKZ81fcIe"
+          publishable-key="pk_live_51UIdAGJaRf233kfWlFacR31IYVGdjCVAttNFzIgQGXQzrUdc894iJcBqamRZNwF11z2AN5kvjyzitor462f2egVI00UmKj0sd8">
+        </stripe-buy-button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <h2>FED-OS</h2>
+    <div class="footer-grid">
+      <section class="footer-group">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="https://www.fedpromptly.org" target="_blank" rel="noopener noreferrer">FED-OS ecosystem</a></li>
+          <li><a href="https://www.fedpromptly.com/aid" target="_blank" rel="noopener noreferrer">FED-OS membership</a></li>
+          <li><a href="https://www.jabburr.com/fed-os" target="_blank" rel="noopener noreferrer">Storefront</a></li>
+          <li><a href="https://whop.com/fedpromptly/" target="_blank" rel="noopener noreferrer">Whop</a></li>
+        </ul>
+      </section>
+
+      <section class="footer-group footer-contact">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:contact@fedpromptly.com">General</a></li>
+          <li><a href="mailto:support@fedpromptly.com">Support</a></li>
+          <li><a href="mailto:business@fedpromptly.com">Business</a></li>
+          <li><a href="mailto:careers@fedpromptly.com">Careers</a></li>
+        </ul>
+      </section>
+
+      <section class="footer-group">
+        <h3>Media</h3>
+        <ul>
+          <li><a href="https://substack.com/@fedpromptly" target="_blank" rel="noopener noreferrer">Articles</a></li>
+          <li><a href="https://fedpromptly.wordpress.com/" target="_blank" rel="noopener noreferrer">Blog</a></li>
+          <li><a href="https://gitfed.substack.com/" target="_blank" rel="noopener noreferrer">GitFed Blog</a></li>
+          <li><a href="https://www.deviantart.com/fedpromptly" target="_blank" rel="noopener noreferrer">Artwork</a></li>
+          <li><a href="https://bsky.app/profile/fed-os.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a></li>
+          <li><a href="https://x.com/Fedpromptly" target="_blank" rel="noopener noreferrer">Advertisement / X</a></li>
+        </ul>
+      </section>
+
+      <section class="footer-group">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="https://www.patreon.com/c/FEDpromptly" target="_blank" rel="noopener noreferrer">Patreon</a></li>
+          <li><a href="https://buymeacoffee.com/fedpromptly" target="_blank" rel="noopener noreferrer">Tips / Donations</a></li>
+          <li><a href="https://discord.gg/Jm4XStx4Pf" target="_blank" rel="noopener noreferrer">Developer community</a></li>
+        </ul>
+      </section>
+    </div>
+    <p class="footer-note">Payment providers may apply their own age, identity, geographic, and transaction requirements. Keep provider identifiers current and never expose private API keys in client-side code. Restricted communities and private rooms are intentionally not listed in this public footer.</p>
+  </footer>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=BAA_ndqaWMyQwTnDZ0LXwLQ22jdJo9uxkeXYqmBbF-hD41HMiZ83mvOcx1Kti0b6ZfXfje7Q1ievNaS8Ok&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+  <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
+  <script>
+    (function () {
+      const gate = document.getElementById('age-gate');
+      const confirmed = window.localStorage.getItem('fedpromptly-age-confirmed') === 'true';
+      if (confirmed) gate.hidden = true;
+
+      document.getElementById('confirm-age').addEventListener('click', function () {
+        window.localStorage.setItem('fedpromptly-age-confirmed', 'true');
+        gate.hidden = true;
+      });
+
+      if (window.paypal) {
+        window.paypal.Buttons({
+          style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
+          createSubscription: function (data, actions) {
+            return actions.subscription.create({ plan_id: 'P-4FD24238VX4902214NK2XP2Y', quantity: 1 });
+          },
+          onApprove: function (data) {
+            window.location.href = 'thank-you.html?provider=paypal&subscription=' + encodeURIComponent(data.subscriptionID);
+          }
+        }).render('#paypal-button-container-P-4FD24238VX4902214NK2XP2Y');
+      }
+
+      if (window.kofiWidgetOverlay) {
+        window.kofiWidgetOverlay.draw('fedpromptly', {
+          'type': 'floating-chat',
+          'floating-chat.donateButton.text': 'Support me',
+          'floating-chat.donateButton.background-color': '#00b9fe',
+          'floating-chat.donateButton.text-color': '#fff'
+        });
+      }
+    }());
+  </script>
+</body>
+</html>

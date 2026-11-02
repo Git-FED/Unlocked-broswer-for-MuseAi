@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">FedPromptly support mark</title>
+  <desc id="desc">A friendly purple speech bubble with a yellow star.</desc>
+  <rect width="64" height="64" rx="16" fill="#4657d8"/>
+  <path d="M14 18c0-4 3-7 7-7h22c4 0 7 3 7 7v17c0 4-3 7-7 7H31l-10 9 2-9h-2c-4 0-7-3-7-7z" fill="#fff"/>
+  <path d="m39 17 2.2 5.3 5.8.5-4.4 3.8 1.3 5.6-4.9-3-4.9 3 1.3-5.6-4.4-3.8 5.8-.5z" fill="#ffdd00"/>
+</svg>
